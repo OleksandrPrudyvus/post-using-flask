@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% include 'includes/flash.html' %}
+    <form method="POST">
+  <div class="form-group row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Email: </label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.email}}">
+    </div>
+    <label for="staticEmail" class="col-sm-2 col-form-label">First Name: </label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticFirstName" value="{{user.firstname}}">
+    </div>
+    <label for="staticEmail" class="col-sm-2 col-form-label">Second Name </label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticSecondName" value="{{user.secondname}}">
+    </div>
+    <label for="staticEmail" class="col-sm-2 col-form-label">Was registered</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{user.created}}">
+    </div>
+    <a class='btn btn-warning mt-3' href="{{url_for('view_user.account_editing')}}">Сontrol</a>
+    <a class='btn btn-danger mt-3 {% if current_user.has_role("admin") %} disabled {% endif %}' href="{{url_for('view_user.user_delete')}}">Delete Account</a>
+  </div>
+</form>
+{% endblock %}

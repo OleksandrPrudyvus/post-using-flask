@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% include "includes/flash.html" %}
+<h1>{{ _('Login') }}</h1>
+<form action="{{ url_for('security.login') }}" method="POST" name="login_user_form">
+  {{ login_user_form.hidden_tag() }}
+  {{ render_field_with_errors(login_user_form.email, class='form-control mt-3') }}
+  {{ render_field_with_errors(login_user_form.password, class='form-control mt-3') }}
+  {{ render_field(login_user_form.next) }}
+  {{ render_field(login_user_form.submit, class='btn btn-success col-md-12') }}
+  <a class="btn btn-primary col-md-12 " href="{{ url_for('view_user.register') }}" role="button">Register</a>
+</form>
+{% include "security/_menu.html" %}
+
+{% endblock %}

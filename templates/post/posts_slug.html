@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+	{{ posted.title }}
+{% endblock %}
+
+{% block manager %}
+    {% if current_user.has_role('manager') %}
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('posts.post_update', slug=posted.slug)}}">Update Post</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('posts.delete_post', slug=posted.slug)}}">Delete Post</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/flash.html' %}
+    <h1>{{ posted.title }}</h1>
+    <div class ="">
+        {{ posted.body }}
+    </div>
+{% endblock %}

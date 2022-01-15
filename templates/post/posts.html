@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+	Posts
+{% endblock %}
+
+{% block search %}
+	<form class="d-flex" method="GET">
+	<input class="form-control me-2" type="search" placeholder="Search" name="q" >
+	<button class="btn btn-outline-success" type="submit">Search</button>
+	</form>
+{% endblock %}
+
+{% block manager %}
+	{% if current_user.has_role('manager') %}
+		<li class="nav-item">
+		<a class="nav-link" href="{{ url_for('posts.post_create')}}">Create New</a>
+		</li>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	{% include 'includes/flash.html' %}
+	<h1>Post</h1>
+	{% for post in pages.items %}
+		{% include 'includes/card.html' %}
+	{% endfor %}
+	<nav aria-label="...">
+	<ul class="pagination">
+	<li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
+	<a class="page-link" href="./?page={{ pages.prev_num }}">Previous</a>
+	</li>
+	{% for page in pages.iter_pages() %}
+
+		<li class="page-item {% if page == pages.page %} active {% endif %}">
+		<a class="page-link" href="./?page={{ page }}">
+		{{ page }}
+		<span class="sr-only">
+
+		</span>
+		</a>
+		</li>
+
+	{% endfor %}
+	<li class="page-item {% if not pages.has_next %} disabled {% endif %}">
+	<a class="page-link " href="./?page={{ pages.next_num }}">Next</a>
+	</li>
+	</ul>
+	</nav>
+{% endblock %}

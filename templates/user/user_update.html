@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Update this account
+{% endblock %}
+
+{% block content %}
+	{% include 'includes/flash.html' %}
+	<h1>Edit "{{ user.email }}" post</h1>
+	<form action="{{ url_for('view_user.account_editing') }}" method="POST">
+		{% for field in form %}
+			<div class="form-group">
+				{% if field.name != 'email' %}
+					{{ field.label() + ':' }}
+					{{ field(class='form-control mt-3') }}
+				{% else %}
+					<label for="staticEmail" class="col-sm-2 col-form-label">Email: </label>
+						<div class="col-sm-12 mt-3">
+						<input type="text" readonly class="form-control" id="staticEmail" value="{{user.email}}">
+						</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	<button class="btn btn-primary mt-3">Submit</button>
+
+	</form>
+{% endblock %}
